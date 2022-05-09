@@ -8,12 +8,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from '@mui/icons-material/Search';
 import { Button } from "@mui/material";
 
-const SearchBar = () => {
-  const [searchValue, setSearchValue] = React.useState('');
-
-  const handleSearchChange = (event) => {
-    setSearchValue(event.target.value);
-  };
+const SearchBar = (props) => {
 
   return (
     <div>
@@ -21,23 +16,20 @@ const SearchBar = () => {
         sx={{ margin: "0 15% 0 15%", width: "70%" }}
         variant="outlined"
       >
-        {/* <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel> */}
         <OutlinedInput
           id="outlined-adornment-password"
           type={"text"}
-          value={searchValue}
+          value={props.searchValue}
           placeholder="Search Here ...."
-          onChange={handleSearchChange}
-        //   sx={{padding:'12px'}}
+          onChange={props.handleSearchChange}
+          onKeyDown={props.handleSearchEnter}
           endAdornment={
             <InputAdornment position="end" style={{padding:'12px'}}>
               <IconButton
                 variant="contained"
-                // onClick={handleClickShowPassword}
-                // onMouseDown={handleMouseDownPassword}
                 edge="end"
+                onClick={(e)=>props.handleSearchEnter(e,'btn')}
               >
-                {/* <Button variant="contained" startIcon={<SearchIcon />} /> */}
                 <SearchIcon variant="primary" />
               </IconButton>
             </InputAdornment>

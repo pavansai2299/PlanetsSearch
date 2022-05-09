@@ -8,7 +8,6 @@ const Size = ({sizes}) => {
                                             key = {sz.id}
                                             control={<Checkbox />} 
                                             label={sz.name} />)
-
     return (
         <div>
             <p><b>Size</b></p>

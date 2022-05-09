@@ -9,7 +9,6 @@ const Color = ({colors}) => {
                                             key = {clr.id}
                                             control={<Checkbox />} 
                                             label={clr.name} />)
-
     return (
         <div>
             <p><b>Color</b></p>

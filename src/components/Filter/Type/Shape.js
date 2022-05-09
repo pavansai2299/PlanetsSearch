@@ -8,7 +8,6 @@ const Shape = ({shapes}) => {
                                             key = {shp.id}
                                             control={<Checkbox />} 
                                             label={shp.name} />)
-
     return (
         <div>
             <p><b>Shape</b></p>
