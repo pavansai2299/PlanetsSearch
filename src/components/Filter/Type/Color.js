@@ -7,7 +7,7 @@ const Color = ({colors,handleColorChange}) => {
     // console.log(colors);
     const colorList = colors.map(clr => <FormControlLabel 
                                             key = {clr.id}
-                                            control={<Checkbox onChange={()=>handleColorChange(clr.id)} />} 
+                                            control={<Checkbox onChange={()=>handleColorChange(clr.id)} checked={clr.clicked ? true : false} />} 
                                             label={clr.name} />)
     return (
         <div>

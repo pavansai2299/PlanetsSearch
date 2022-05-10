@@ -1,14 +1,14 @@
 import React,{useState,useEffect} from 'react';
 import './App.css';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import SearchBar from './components/SearchBar/SearchBar';
 import Filter from './components/Filter/Filter';
 import Results from './components/Results/Results';
 
 function App() {
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  // console.log(params);
   const [filters,setFilters] = useState({
                                       colors:[],
                                       sizes:[],
@@ -22,11 +22,11 @@ function App() {
   const [filterData,setFilterData] = useState([]);
 
   const getSearchResults = (srchVal,clrVal,sizeVal,shapeVal) => {
-    console.log(searchVal);
+    // console.log(searchVal);
     fetch(`http://localhost:3000/planets?q=${srchVal}&${clrVal}${sizeVal}${shapeVal}`)
     .then(res => res.json())
     .then(res => {
-      console.log(res);
+      // console.log(res);
       setFilterData(res);
     })
   }
@@ -132,8 +132,8 @@ function App() {
   },[filters.shapes])
 
   useEffect(()=>{
-    if(colorQuery || sizeQuery || shapeQuery)
-      getSearchResults(searchVal,colorQuery,sizeQuery,shapeQuery)
+    // if(colorQuery || sizeQuery || shapeQuery)
+    getSearchResults(searchVal,colorQuery,sizeQuery,shapeQuery)
   },[colorQuery,sizeQuery,shapeQuery])
 
   // console.log(filters);
@@ -149,6 +149,39 @@ function App() {
       return [colors,sizes,shapes]
     })
     .then(([colors,sizes,shapes]) => {
+      if(params.colors){
+        // console.log(params.colors)
+        const prm_color = params.colors.split(',')
+        for(let i of colors){
+          for(let j of prm_color){
+            if(i.id === j){
+              i.clicked = true
+            }
+          }
+        }
+      }
+      if(params.sizes){
+        // console.log(params.sizes)
+        const prm_size = params.sizes.split(',')
+        for(let i of sizes){
+          for(let j of prm_size){
+            if(i.id === j){
+              i.clicked = true
+            }
+          }
+        }
+      }
+      if(params.shapes){
+        // console.log(params.shapes)
+        const prm_shape = params.shapes.split(',')
+        for(let i of shapes){
+          for(let j of prm_shape){
+            if(i.id === j){
+              i.clicked = true
+            }
+          }
+        }
+      }
       setFilters({...filters,colors:colors,sizes:sizes,shapes:shapes})
     }).catch((err) => {
       console.log(err);

@@ -31,7 +31,7 @@ const Results = ({ data }) => {
           </div>;
   });
   return (
-      <List sx={{ width: "100%", bgcolor: "background.paper" }}>
+      <List sx={{ width: "100%", bgcolor: "background.paper",height:'500px',overflowY:'auto' }}>
         {resultData}
       </List>
   )

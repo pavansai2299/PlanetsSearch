@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 const Size = ({sizes,handleSizeChange}) => {
     const sizeList = sizes.map(sz => <FormControlLabel 
                                             key = {sz.id}
-                                            control={<Checkbox onChange={()=>handleSizeChange(sz.id)} />} 
+                                            control={<Checkbox onChange={()=>handleSizeChange(sz.id)} checked={sz.clicked ? true : false} />} 
                                             label={sz.name} />)
     return (
         <div>
