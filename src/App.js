@@ -12,14 +12,18 @@ function App() {
   const [filters,setFilters] = useState({
                                       colors:[],
                                       sizes:[],
-                                      shapes:[]
+                                      shapes:[],
+                                      updated:false
                                     })
-  const [searchVal,setSearchVal] = useState('');
+  // console.log(params.q);
+  const [searchVal,setSearchVal] = useState(params.q || '');
   const [colorQuery,setColorQuery] = useState('');
   const [sizeQuery,setSizeQuery] = useState('');
   const [shapeQuery,setShapeQuery] = useState('');
 
   const [filterData,setFilterData] = useState([]);
+
+  const [checkParam,setCheckParam] = useState(false);
 
   const getSearchResults = (srchVal,clrVal,sizeVal,shapeVal) => {
     // console.log(searchVal);
@@ -133,8 +137,9 @@ function App() {
 
   useEffect(()=>{
     // if(colorQuery || sizeQuery || shapeQuery)
-    getSearchResults(searchVal,colorQuery,sizeQuery,shapeQuery)
-  },[colorQuery,sizeQuery,shapeQuery])
+    // console.log(filters.updated);
+    filters.updated && getSearchResults(searchVal,colorQuery,sizeQuery,shapeQuery)
+  },[filters.updated,colorQuery,sizeQuery,shapeQuery])
 
   // console.log(filters);
   useEffect(()=>{
@@ -182,13 +187,15 @@ function App() {
           }
         }
       }
-      setFilters({...filters,colors:colors,sizes:sizes,shapes:shapes})
+      setFilters({...filters,colors:colors,sizes:sizes,shapes:shapes,updated:true})
+      // setCheckParam(true);
     }).catch((err) => {
       console.log(err);
     });
   
   },[])
 
+  // console.log(searchVal);
   return (
     <div className="app-container">
       <Grid container>
@@ -196,7 +203,7 @@ function App() {
           <SearchBar 
             handleSearchChange={handleSearchChange} 
             handleSearchEnter={handleSearchEnter} 
-            searchvalue={searchVal} />
+            searchValue={searchVal} />
         </Grid>
       </Grid>
       <Grid container spacing={3} sx={{marginTop:'20px'}} >
