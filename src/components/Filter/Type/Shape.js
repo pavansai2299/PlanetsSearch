@@ -3,10 +3,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-const Shape = ({shapes}) => {
+const Shape = ({shapes,handleShapeChange}) => {
     const shapeList = shapes.map(shp => <FormControlLabel 
                                             key = {shp.id}
-                                            control={<Checkbox />} 
+                                            control={<Checkbox onChange={()=>handleShapeChange(shp.id)} />} 
                                             label={shp.name} />)
     return (
         <div>
