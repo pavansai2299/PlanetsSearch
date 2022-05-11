@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import SearchBar from './components/SearchBar/SearchBar';
 import Filter from './components/Filter/Filter';
 import Results from './components/Results/Results';
+import { Button } from '@mui/material';
 
 function App() {
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -195,15 +196,32 @@ function App() {
   
   },[])
 
+  const handleShareClick = () =>{
+    var url = new URL(window.location.origin+'/planets');
+    var sq = searchVal;
+    var cq = filters.colors.filter(item => item.clicked).map( item => item.id).join(',')
+    var szeq = filters.sizes.filter(item => item.clicked).map( item => item.id).join(',')
+    var shapeq = filters.shapes.filter(item => item.clicked).map( item => item.id).join(',')
+    url.searchParams.set('q', sq);
+    url.searchParams.set('colors',cq);
+    url.searchParams.set('sizes',szeq);
+    url.searchParams.set('shapes',shapeq);
+    console.log(url);
+    window.open(url,'_blank')
+  }
+
   // console.log(searchVal);
   return (
     <div className="app-container">
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={10}>
           <SearchBar 
             handleSearchChange={handleSearchChange} 
             handleSearchEnter={handleSearchEnter} 
             searchValue={searchVal} />
+        </Grid>
+        <Grid item xs={2}>
+          <Button variant="contained" onClick={handleShareClick} sx={{marginTop:'10px'}} >Results</Button>
         </Grid>
       </Grid>
       <Grid container spacing={3} sx={{marginTop:'20px'}} >
