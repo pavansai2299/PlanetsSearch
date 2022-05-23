@@ -24,8 +24,6 @@ function App() {
 
   const [filterData,setFilterData] = useState([]);
 
-  const [checkParam,setCheckParam] = useState(false);
-
   const getSearchResults = (srchVal,clrVal,sizeVal,shapeVal) => {
     // console.log(searchVal);
     fetch(`http://localhost:3000/planets?q=${srchVal}&${clrVal}${sizeVal}${shapeVal}`)
@@ -46,58 +44,55 @@ function App() {
     }
   }
 
-  const handleColorChange = (clrId) => {
-    // console.log(clrId);
-    const clr_data = [...filters.colors]
-    clr_data.forEach( item => {
-      if(item.id === clrId){
-        if(item.clicked){
-          item.clicked = !item.clicked
+  const handleFilterChange = (id,type) => {
+    if(type === 'color'){
+      const clr_data = [...filters.colors]
+      clr_data.forEach( item => {
+        if(item.id === id){
+          if(item.clicked){
+            item.clicked = !item.clicked
+          }
+          else{
+            item.clicked = true
+          }
         }
-        else{
-          item.clicked = true
+      })
+      const filtered_data = {...filters}
+      filtered_data['colors'] = clr_data
+      setFilters(filtered_data);
+    }
+    else if(type === 'size'){
+      const size_data = [...filters.sizes]
+      size_data.forEach( item => {
+        if(item.id === id){
+          if(item.clicked){
+            item.clicked = !item.clicked
+          }
+          else{
+            item.clicked = true
+          }
         }
-      }
-    })
-    const filtered_data = {...filters}
-    filtered_data['colors'] = clr_data
-    setFilters(filtered_data);
-  }
-
-  const handleSizeChange = (sizeId) => {
-    // console.log(sizeId);
-    const size_data = [...filters.sizes]
-    size_data.forEach( item => {
-      if(item.id === sizeId){
-        if(item.clicked){
-          item.clicked = !item.clicked
+      })
+      const filtered_data = {...filters}
+      filtered_data['sizes'] = size_data
+      setFilters(filtered_data);
+    }
+    else{
+      const shape_data = [...filters.shapes]
+      shape_data.forEach( item => {
+        if(item.id === id){
+          if(item.clicked){
+            item.clicked = !item.clicked
+          }
+          else{
+            item.clicked = true
+          }
         }
-        else{
-          item.clicked = true
-        }
-      }
-    })
-    const filtered_data = {...filters}
-    filtered_data['sizes'] = size_data
-    setFilters(filtered_data);
-  }
-
-  const handleShapeChange = (shapeId) => {
-    // console.log(shapeId);
-    const shape_data = [...filters.shapes]
-    shape_data.forEach( item => {
-      if(item.id === shapeId){
-        if(item.clicked){
-          item.clicked = !item.clicked
-        }
-        else{
-          item.clicked = true
-        }
-      }
-    })
-    const filtered_data = {...filters}
-    filtered_data['shapes'] = shape_data
-    setFilters(filtered_data);
+      })
+      const filtered_data = {...filters}
+      filtered_data['shapes'] = shape_data
+      setFilters(filtered_data);
+    }
   }
 
   useEffect(()=>{
@@ -225,17 +220,23 @@ function App() {
         </Grid>
       </Grid>
       <Grid container spacing={3} sx={{marginTop:'20px'}} >
+      {!filters.updated ? <Grid item xs={12}>
+          <h1>Loading ...</h1>
+        </Grid>
+        : <>
         <Grid item xs={4}>
           <Filter 
             filters={filters}
-            handleColorChange = {handleColorChange}
-            handleSizeChange = {handleSizeChange}
-            handleShapeChange = {handleShapeChange}
+            handleFilterChange = {handleFilterChange}
+            handleFilterChange = {handleFilterChange}
+            handleFilterChange = {handleFilterChange}
              />
         </Grid>
         <Grid item xs={8}>
           <Results data={filterData} />
         </Grid>
+        </>
+        }
       </Grid>
     </div>
   );

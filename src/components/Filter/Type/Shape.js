@@ -2,20 +2,19 @@ import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import withFilter from '../../withFilter';
 
-const Shape = ({shapes,handleShapeChange}) => {
-    const shapeList = shapes.map(shp => <FormControlLabel 
-                                            key = {shp.id}
-                                            control={<Checkbox onChange={()=>handleShapeChange(shp.id)} checked={shp.clicked ? true : false} />} 
-                                            label={shp.name} />)
+
+const Shape = (props) => {
     return (
         <div>
             <p><b>Shape</b></p>
             <FormGroup>
-                {shapeList}
+                {props.filterList}
             </FormGroup>
         </div>
     );
 };
 
-export default Shape;
+const EnnhancedShape = withFilter(Shape)
+export default EnnhancedShape;

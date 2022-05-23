@@ -2,20 +2,19 @@ import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import withFilter from '../../withFilter';
 
-const Size = ({sizes,handleSizeChange}) => {
-    const sizeList = sizes.map(sz => <FormControlLabel 
-                                            key = {sz.id}
-                                            control={<Checkbox onChange={()=>handleSizeChange(sz.id)} checked={sz.clicked ? true : false} />} 
-                                            label={sz.name} />)
+
+const Size = (props) => {
     return (
         <div>
             <p><b>Size</b></p>
             <FormGroup>
-                {sizeList}
+                {props.filterList}
             </FormGroup>
         </div>
     );
 };
 
-export default Size;
+const EnnhancedSize = withFilter(Size)
+export default EnnhancedSize;

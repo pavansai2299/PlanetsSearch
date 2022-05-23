@@ -4,7 +4,6 @@ import Shape from './Type/Shape';
 import Size from './Type/Size';
 
 const Filter = ({filters,...others}) => {
-    // console.log(filters);
     return (
         filters.colors.length > 0 && 
             <div style={{
@@ -14,9 +13,9 @@ const Filter = ({filters,...others}) => {
                     marginLeft:'10%',
                     borderRight: '2px solid rgba(0, 0, 0, 0.12)'
                     }}>
-                <Color colors={filters.colors} handleColorChange={others.handleColorChange} />
-                <Size sizes = {filters.sizes} handleSizeChange={others.handleSizeChange} />
-                <Shape shapes= {filters.shapes} handleShapeChange={others.handleShapeChange} />
+                <Color data={filters.colors} handleFilterChange={others.handleFilterChange} type='color' />
+                <Size data= {filters.sizes} handleFilterChange={others.handleFilterChange} type='size' />
+                <Shape data= {filters.shapes} handleFilterChange={others.handleFilterChange} type='shape' />
             </div>
         
     );
