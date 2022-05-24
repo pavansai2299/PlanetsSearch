@@ -20,6 +20,7 @@ const SearchBar = (props) => {
           id="outlined-adornment-password"
           type={"text"}
           value={props.searchValue}
+          sx={{paddingRight:'0px'}}
           placeholder="Search Here ...."
           onChange={props.handleSearchChange}
           onKeyDown={props.handleSearchEnter}
@@ -27,6 +28,7 @@ const SearchBar = (props) => {
             <InputAdornment position="end" style={{padding:'12px'}}>
               <IconButton
                 variant="contained"
+                sx={{background:'#1976d2',borderRadius:'0px',height:'56px'}}
                 edge="end"
                 onClick={(e)=>props.handleSearchEnter(e,'btn')}
               >
