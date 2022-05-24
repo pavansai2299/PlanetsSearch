@@ -1,11 +1,10 @@
 import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import withFilter from '../../withFilter';
 
 
 const Size = (props) => {
+    // console.log('size comp');
     return (
         <div>
             <p><b>Size</b></p>
@@ -16,5 +15,9 @@ const Size = (props) => {
     );
 };
 
-const EnnhancedSize = withFilter(Size)
+function sizePropsAreEqual(prevColor, nextColor) {
+    return  JSON.stringify(prevColor.data) === JSON.stringify(nextColor.data); 
+}
+
+const EnnhancedSize = withFilter(React.memo(Size))
 export default EnnhancedSize;

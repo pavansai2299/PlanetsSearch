@@ -4,8 +4,9 @@ import Shape from './Type/Shape';
 import Size from './Type/Size';
 
 const Filter = ({filters,...others}) => {
+    // console.log(filters);
     return (
-        filters.colors.length > 0 && 
+        filters.updated && 
             <div style={{
                     display:'flex',
                     flexDirection:'column',

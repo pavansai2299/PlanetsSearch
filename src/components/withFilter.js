@@ -5,6 +5,11 @@ import Checkbox from '@mui/material/Checkbox';
 
 const withFilter = (OriginalCmp) => {
     return class TransformedCmp extends React.Component{
+        shouldComponentUpdate(nextFilter){
+            // console.log(nextFilter.data,this.props.data);
+            // return  JSON.stringify(nextFilter.data) !== JSON.stringify(this.props.data); 
+            return true
+        }
         render(){
             const filterList = this.props.data.map(item => <FormControlLabel 
                 key = {item.id}
